@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SE_SensorModel xmlns="https://github.com/Kaaaaaamung/sml19130"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:sml="http://www.opengis.net/sensorml/2.0"
+    xmlns:swe="http://www.opengis.net/swe/2.0"
+    xmlns:gml="http://www.opengis.net/gml/3.2"
+    xmlns:gmi="http://www.isotc211.org/2005/gmi"
+    xsi:schemaLocation="https://github.com/Kaaaaaamung/sml19130 ../schemas/overview.xsd https://github.com/Kaaaaaamung/sml19130 ../schemas/sensorParameters.xsd https://github.com/Kaaaaaamung/sml19130 ../schemas/physicalSensorModel.xsd
+    https://github.com/Kaaaaaamung/sml19130 ../schemas/groundControlPoints.xsd">
+    
+    <IdentifierList xmlns="http://www.opengis.net/sensorml/2.0">
+        <identifier>
+            <Term>
+                <label>forImageID</label>
+                <value>s1b-iw1-slc-vh-20190730t004009-20190730t004023-017356-020a31-001</value>
+            </Term>
+        </identifier>
+    </IdentifierList>
+   
+    <physicalSensorModel>
+        
+        <sml:featuresOfInterest>
+            <sml:FeatureList>
+                <sml:feature>
+                    <gml:GridCoverage>
+                        <gml:domainSet>
+                            <gml:MultiPoint>
+                                <gml:pointMembers>
+                                    <gml:Point>
+                                        <gml:coordinates>
+                                            -9.938113301744562e+01,2.032876894515828e+01
+                                        </gml:coordinates>
+                                    </gml:Point>
+                                    <gml:Point>
+                                        <gml:coordinates>
+                                            -9.876913429911600e+01,2.132332113055814e+01
+                                        </gml:coordinates>
+                                    </gml:Point>
+                                    <gml:Point>
+                                        <gml:coordinates>
+                                            -9.880698112293788e+01,2.131655145344838e+01
+                                        </gml:coordinates>
+                                    </gml:Point>
+                                </gml:pointMembers>
+                            </gml:MultiPoint>
+                        </gml:domainSet>
+                        
+                        <gml:rangeSet>
+                            <gml:CountList>withheld</gml:CountList>
+                        </gml:rangeSet>
+                    </gml:GridCoverage>
+                </sml:feature>
+            </sml:FeatureList>
+        </sml:featuresOfInterest>
+        <!-- This is the 'opertionalMode' property in SD_SensorParameters. -->
+        <modes xmlns="http://www.opengis.net/sensorml/2.0">
+            <AbstractModes>
+                <extension xmlns="http://www.opengis.net/swe/2.0">
+                    <CharacterString xmlns="http://standards.iso.org/iso/19115/-3/gco/1.0">
+                        iW, Interferometric Wide Swath
+                    </CharacterString>
+                </extension>
+            </AbstractModes>
+        </modes>
+        <sml:ComponentList>
+            <sml:component name="sensorInformation">
+                <sml:PhysicalComponent>
+                    <sml:extension>
+                        <SD_SensorParameters>
+                            <sml:components>
+                                <sml:ComponentList>
+                                    <!-- The detector is an example. -->
+                                    <sml:component name="detector">
+                                        <sml:PhysicalComponent>
+                                            <sml:extension>
+                                                <SD_DetectorArray>
+                                                    <sml:characteristics name="example_chara">
+                                                        <sml:CharacteristicList>
+                                                            <sml:characteristic name="numberOfDimensions">
+                                                                <swe:Quantity>
+                                                                    <swe:uom/>
+                                                                    <swe:value>2</swe:value>
+                                                                </swe:Quantity>
+                                                            </sml:characteristic>
+                                                            <sml:characteristic name="detectorSize">
+                                                                <swe:DataRecord>
+                                                                    <swe:field name="length">
+                                                                        <swe:DataRecord>
+                                                                            <swe:field name="width">
+                                                                                <swe:Quantity>
+                                                                                    <swe:uom/>
+                                                                                    <swe:value>1</swe:value>
+                                                                                </swe:Quantity>
+                                                                            </swe:field>
+                                                                            <swe:field name="length">
+                                                                                <swe:Quantity>
+                                                                                    <swe:uom/>
+                                                                                    <swe:value>1</swe:value>
+                                                                                </swe:Quantity>
+                                                                            </swe:field>
+                                                                        </swe:DataRecord>
+                                                                    </swe:field>
+                                                                </swe:DataRecord>
+                                                            </sml:characteristic>
+                                                        </sml:CharacteristicList>
+                                                    </sml:characteristics>
+                                                    <sml:configuration>
+                                                        <sml:AbstractSettings>
+                                                            <swe:extension>
+                                                                <!-- arrayOrigin -->
+                                                                <gml:position>
+                                                                    <gml:Point>
+                                                                        <gml:coordinates>
+                                                                            -6.268154000450000e+06 -1.556287232414000e+06
+                                                                        </gml:coordinates>
+                                                                    </gml:Point>
+                                                                </gml:position>
+                                                                <!-- offsetVectors -->
+                                                                <swe:Vector referenceFrame="EarthFixed">
+                                                                    <swe:coordinate name="offset">
+                                                                        <swe:Quantity>
+                                                                            <swe:uom/>
+                                                                            <swe:value>59875</swe:value>
+                                                                        </swe:Quantity>                                                                 
+                                                                    </swe:coordinate>                               
+                                                                </swe:Vector>
+                                                            </swe:extension>
+                                                        </sml:AbstractSettings>
+                                                    </sml:configuration>
+                                                    <arrayDimensions>
+                                                        <swe:DataRecord>
+                                                            <swe:field name="example_field">
+                                                                <swe:Text>
+                                                                    <swe:value>This is an example detector</swe:value>
+                                                                </swe:Text>
+                                                            </swe:field>
+                                                        </swe:DataRecord>
+                                                    </arrayDimensions>
+                                                    <detectorShape>
+                                                        <square/>
+                                                    </detectorShape>
+                                                </SD_DetectorArray>
+                                            </sml:extension>
+                                        </sml:PhysicalComponent>
+                                    </sml:component>
+                                    <sml:component name="systemAndOrientation">
+                                        <sml:PhysicalComponent>
+                                            <sml:extension>
+                                                <SE_SAROperation>
+                                                    <sml:components>
+                                                        <sml:ComponentList>
+                                                            <sml:component name="grpSAROperation">
+                                                                <sml:PhysicalComponent>
+                                                                    <sml:extension>
+                                                                        <gml:position>
+                                                                            <gml:Point>
+                                                                                <gml:description> geolocationGridPointList count="126"</gml:description>
+                                                                                <gml:coordinates>
+                                                                                    -9.938113301744562e+01 2.032876894515828e+01
+                                                                                    -9.933794692601427e+01 -2.033676575195040e+01
+                                                                                </gml:coordinates>
+                                                                            </gml:Point>
+                                                                            
+                                                                        </gml:position>
+                                                                    </sml:extension>
+                                                                </sml:PhysicalComponent>
+                                                            </sml:component>
+                                                        </sml:ComponentList>
+                                                    </sml:components>
+                                                    <collectionStartTime>2019-07-30T00:40:09.308324</collectionStartTime>
+                                                    <collectionEndTime>2019-07-30T00:40:23.399163</collectionEndTime>
+ 
+                                                    <orientation>
+                                                        <!-- This image id at descending orbit. -->
+                                                        <right></right>
+                                                    </orientation>
+                                                    
+                                                    <!-- This image is collected using Interferometric Wide Swath method, which is a type of scan method.-->
+                                                    <!-- ref: https://sentinel.esa.int/web/sentinel/user-guides/sentinel-1-sar/acquisition-modes/interferometric-wide-swath -->
+                                                    
+                                                    <collectionMode>
+                                                        <scan>001</scan>
+                                                    </collectionMode>
+                                                    
+                                                </SE_SAROperation>
+                                                <SD_SensorSystemAndOperation>
+                                                    <collectionStartTime>2019-07-30T00:40:09.308324</collectionStartTime>
+                                                    <collectionEndTime>2019-07-30T00:40:23.399163</collectionEndTime>
+                                                </SD_SensorSystemAndOperation>
+                                            </sml:extension>
+                                        </sml:PhysicalComponent>
+                                    </sml:component>
+                                </sml:ComponentList>
+                            </sml:components>
+                                                   
+                            <!-- The offsetAndOrientation is actually more than one. The following one is listed as an example. -->
+                            <offsetAndOrientation>
+                                <configuration xmlns="http://www.opengis.net/sensorml/2.0">
+                                    <!-- This is an 'offset' property of 'SD_PositionAndOrientation class' -->
+                                    <AbstractSettings>
+                                        <extension xmlns="http://www.opengis.net/swe/2.0">
+                                            <Vector referenceFrame="EarthFixed">
+                                                <coordinate name="offsetVector">
+                                                    <Count></Count>
+                                                </coordinate>
+                                            </Vector>
+                                        </extension>
+                                    </AbstractSettings>
+                                </configuration>
+                                <localReferenceFrame xmlns="http://www.opengis.net/sensorml/2.0">
+                                    <SpatialFrame>
+                                        <!-- The SpatialFrame is GM2000. -->
+                                        <!-- Noted in https://eop-cfi.esa.int/Repo/PUBLIC/DOCUMENTATION/SYSTEM_SUPPORT_DOCS/PE-TN-ESA-SY-0305%20Earth%20Observation%20OPS%20commanding%20definition%20v1.9.pdf -->
+                                        <origin>GM2000,the Geocentric Mean of J2000</origin>
+                                        <axis name="XY">Ground differences due to XY Plane definition:8000 m (in 2010); Time differences due to XY Plane definition: 1.2 s (2010)</axis>
+                                    </SpatialFrame>
+                                </localReferenceFrame>  
+                                
+                                <dynamics>
+                                    <validTime xmlns="http://www.opengis.net/sensorml/2.0">
+                                        <TimeInstant xmlns="http://www.opengis.net/gml/3.2">
+                                            <timePosition>2019-07-30T00:39:04.622291</timePosition>
+                                        </TimeInstant>
+                                    </validTime>
+                                    <attitude_matrix>
+                                        <!-- It is calculated by using https://www.andre-gaschler.com/rotationconverter/ -->
+                                        <!-- The sequence of rotation axes is YXZ. -->
+                                        <!--   <attitudeList count="15">
+                                                 <attitude>
+                                                   <time>2019-07-30T00:40:09.874998</time>
+                                                   <frame>GM2000</frame>
+                                                   <q0>-5.084759e-01</q0>
+                                                   <q1>-3.818373e-01</q1>
+                                                   <q2>6.496271e-01</q2>
+                                                   <q3>4.166979e-01</q3>
+                                                   <wx>6.717978249071166e-05</wx>
+                                                   <wy>-9.266426786780357e-04</wy>
+                                                   <wz>-5.129589117132127e-04</wz>
+                                                   <roll>-4.148510795651129e+00</roll>
+                                                   <pitch>7.894170350724507e+01</pitch>
+                                                   <yaw>1.112276773932129e+02</yaw>
+                                                 </attitude> -->
+                                        <matrixElements>
+                                            <r1c1>-0.1356302</r1c1>
+                                            <r1c2>-0.1530864</r1c2>
+                                            <r1c3>-0.9788611</r1c3>
+                                            <r2c1>0.9297066</r2c1>
+                                            <r2c2>-0.3611262</r2c2>
+                                            <r2c3>-0.0723420</r2c3>
+                                            <r3c1>-0.3424179</r3c1>
+                                            <r3c2>-0.9198654</r3c2>
+                                            <r3c3>0.1913051</r3c3>
+                                        </matrixElements>
+                                    </attitude_matrix>             
+                                    <velocity>
+                                        <valueList xmlns="http://www.opengis.net/gml/3.2" uom="1">
+                                            -1.152671849000000e+03
+                                            2.301805695000000e+03
+                                            7.148484713000000e+03
+                                        </valueList>
+                                    </velocity>           
+                                    <angularAcceleration>
+                                        <!-- This property is the azimuthSteeringRate in Sentinel 1 image -->
+                                        1.590368784000000e+00
+                                    </angularAcceleration>       
+                                </dynamics>
+                                
+                                <position_earth>
+                                    <timeOfMeasurement> 2019-07-30T03:19:28</timeOfMeasurement>
+                                    <navigationalConfidence>
+                                        <DQ_AbsoluteExternalPositionalAccuracy xmlns="http://standards.iso.org/iso/19157/-2/mdq/1.0">
+                                            <result>                
+                                            </result>
+                                        </DQ_AbsoluteExternalPositionalAccuracy>
+                                    </navigationalConfidence>
+                                    <position>
+                                        000
+                                    </position>
+                                </position_earth>
+                                
+                                <sml:ComponentList>
+                                    <sml:component name="platform">
+                                        <sml:PhysicalComponent>
+                                            <sml:extension>
+                                                <SD_PlatformParameters>
+                                                    <parameter xmlns="http://www.opengis.net/sensorml/2.0" name="platformParameters"></parameter>
+                                                    <observedPosition>
+                                                        <timeOfMeasurement>2019-07-30T03:19:28</timeOfMeasurement>
+                                                    </observedPosition>
+                                                    <dynamics>
+                                                        <trueHeading uom="1">-1.224969159628476e+01</trueHeading>
+                                                        <yaw uom="1">1.112276773932129e+02</yaw>
+                                                    </dynamics>
+                                                    
+                                                    <platformIdentification>
+                                                        <identifier xmlns="http://www.isotc211.org/2005/gmi">
+                                                            <MD_Identifier xmlns="http://www.isotc211.org/2005/gmd">
+                                                                <code>
+                                                                    <CharacterString xmlns="http://www.isotc211.org/2005/gco">Sentinel-1</CharacterString>
+                                                                </code>
+                                                            </MD_Identifier>
+                                                        </identifier>
+                                                        <description xmlns="http://www.isotc211.org/2005/gmi"></description>
+                                                        <instrument xmlns="http://www.isotc211.org/2005/gmi">
+                                                            <MI_Instrument>
+                                                                <identifier>
+                                                                    <MD_Identifier xmlns="http://www.isotc211.org/2005/gmd">
+                                                                        <code>
+                                                                            <CharacterString xmlns="http://www.isotc211.org/2005/gco">IW</CharacterString>
+                                                                        </code>
+                                                                    </MD_Identifier>
+                                                                </identifier>
+                                                                <type>
+                                                                    <CharacterString xmlns="http://www.isotc211.org/2005/gco">Interferometric Wide Swath</CharacterString>
+                                                                </type>
+                                                            </MI_Instrument>
+                                                        </instrument>
+                                                    </platformIdentification>
+                                                </SD_PlatformParameters>
+                                            </sml:extension>
+                                        </sml:PhysicalComponent>
+                                    </sml:component>
+                                </sml:ComponentList>
+                            </offsetAndOrientation>
+                            
+                            <!-- The gsdProperties property is an example. -->
+                            <gsdProperties>
+                                <columnSpacing>
+                                    1
+                                </columnSpacing>
+                                <rowSpacing>
+                                    1
+                                </rowSpacing>
+                                <gsdCRS>
+                                    <referenceSystemIdentifier xmlns="http://standards.iso.org/iso/19115/-3/mrs/1.0">
+                                        <MD_Identifier xmlns="http://standards.iso.org/iso/19115/-3/mcc/1.0">
+                                            <code>
+                                                <CharacterString xmlns="http://standards.iso.org/iso/19115/-3/gco/1.0">Reference System</CharacterString>
+                                            </code>
+                                        </MD_Identifier>
+                                    </referenceSystemIdentifier>
+                                </gsdCRS>
+                                <referenceSurface>
+                                    <ground></ground>
+                                </referenceSurface>
+                            </gsdProperties>
+                            <identification>       
+                                <calibration>                                     
+                                    <calibrationAgency>
+                                        <CI_Responsibility xmlns="http://standards.iso.org/iso/19115/-3/cit/2.0">
+                                            <role>
+                                                <CI_RoleCode codeList="RoleCode" codeListValue="owner" codeSpace="ISOTC211/19115"></CI_RoleCode>
+                                            </role>
+                                            <party>
+                                                <CI_Organisation>
+                                                    <name>
+                                                        <CharacterString xmlns="http://standards.iso.org/iso/19115/-3/gco/1.0">ESA</CharacterString>
+                                                    </name>
+                                                </CI_Organisation>
+                                            </party>
+                                        </CI_Responsibility>
+                                    </calibrationAgency>
+                                </calibration>
+                            </identification>         
+                        </SD_SensorParameters>
+                    </sml:extension>
+                </sml:PhysicalComponent>
+            </sml:component>
+        </sml:ComponentList>
+        
+        <!-- The ground conrtol points information below is only an example, not the real situation. -->      
+        <controlPointRespository>        
+            <accessRestricted>
+                true
+            </accessRestricted>               
+            <accessInformation>
+                <onlineResource xmlns="http://standards.iso.org/iso/19115/-3/cit/2.0">
+                    <CI_OnlineResource>
+                        <linkage>
+                            <CharacterString xmlns="http://standards.iso.org/iso/19115/-3/gco/1.0">
+                                https://sentinel.esa.int/web/sentinel/technical-guides/sentinel-3-synergy/level-1/shift-estimation-at-ground-control-points
+                            </CharacterString>
+                        </linkage>
+                    </CI_OnlineResource>
+                </onlineResource>
+            </accessInformation>             
+            <controlPoints>
+                <collectionIdentification xmlns="http://www.isotc211.org/2005/gmi">
+                    <Integer xmlns="http://www.isotc211.org/2005/gco">
+                        4512
+                    </Integer>
+                </collectionIdentification>
+                <collectionName xmlns="http://www.isotc211.org/2005/gmi">
+                    <CharacterString xmlns="http://www.isotc211.org/2005/gco">
+                        gcpCollection-s1b-iw1-slc-vh-20190730t004009-20190730t004023-017356-020a31-001
+                    </CharacterString>
+                </collectionName>
+                <coordinateReferenceSystem xmlns="http://www.isotc211.org/2005/gmi">
+                    <MD_ReferenceSystem xmlns="http://www.isotc211.org/2005/gmd">
+                        <referenceSystemIdentifier>
+                            <RS_Identifier>
+                                <code>
+                                    <MD_PixelOrientationCode>center</MD_PixelOrientationCode>
+                                </code>
+                            </RS_Identifier>
+                        </referenceSystemIdentifier>
+                    </MD_ReferenceSystem>
+                </coordinateReferenceSystem>
+                <gcp xmlns="http://www.isotc211.org/2005/gmi">
+                    <MI_GCP>
+                        <geographicCoordinates>
+                            <gml:pos>
+                                -9.938113301e+01 2.0079287942e+02 
+                            </gml:pos>                    
+                        </geographicCoordinates>
+                    </MI_GCP>
+                </gcp>
+                <gcp xmlns="http://www.isotc211.org/2005/gmi">
+                    <MI_GCP>
+                        <geographicCoordinates>
+                            <gml:pos>
+                                -9.9381133422e+01 2.0079286754e+02 
+                            </gml:pos>
+                        </geographicCoordinates>
+                    </MI_GCP>
+                </gcp>
+            </controlPoints>           
+        </controlPointRespository>    
+    </physicalSensorModel>
+    <sensorDataModeling>
+        <absoluteValue/>
+    </sensorDataModeling>        
+    <sensorManufaturer>
+        ESA
+    </sensorManufaturer> 
+</SE_SensorModel>

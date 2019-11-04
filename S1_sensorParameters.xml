@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is a best practice of SD_SensorParameters 
+        for scene 's1b-iw1-slc-vh-20190730t004009-20190730t004023-017356-020a31-001'
+        granule 'S1B_IW_SLC__1SDV_20190730T004007_20190730T004025_017356_020A31_D05E'
+        Image from Sentinel-1.
+        Copyright@ Copernicus Sentinel data 2019, processed by ESA.
+-->
+
+<!-- 
+     <geolocationGridPoint>
+        <azimuthTime>2019-07-30T00:40:09.308074</azimuthTime>
+        <slantRangeTime>5.330354223341057e-03</slantRangeTime>
+        <line>0</line>
+        <pixel>0</pixel>
+        <latitude>2.032876894515828e+01</latitude>
+        <longitude>-9.938113301744562e+01</longitude>
+        <height>1.931363636363636e+03</height>
+        <incidenceAngle>3.117247758863574e+01</incidenceAngle>
+        <elevationAngle>2.782067451900517e+01</elevationAngle>
+      </geolocationGridPoint>
+-->
+<paras:SD_SensorParameters xmlns:paras="https://github.com/Kaaaaaamung/sml19130"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://github.com/Kaaaaaamung/sml19130 ../schemas/sensorParameters.xsd">
+    
+   <!-- This is the 'opertionalMode' property in SD_SensorParameters. -->
+    <modes xmlns="http://www.opengis.net/sensorml/2.0">
+        <AbstractModes>
+            <extension xmlns="http://www.opengis.net/swe/2.0">
+                <CharacterString xmlns="http://standards.iso.org/iso/19115/-3/gco/1.0">
+                    iW, Interferometric Wide Swath
+                </CharacterString>
+            </extension>
+        </AbstractModes>
+    </modes>
+    
+    <!-- The offsetAndOrientation is actually more than one. The following one is listed as an example. -->
+    <paras:offsetAndOrientation>
+        <configuration xmlns="http://www.opengis.net/sensorml/2.0">
+            <!-- This is an 'offset' property of 'SD_PositionAndOrientation class' -->
+            <AbstractSettings>
+                <extension xmlns="http://www.opengis.net/swe/2.0">
+                    <Vector referenceFrame="#s1b-iw1-slc-vh-20190730t004009-20190730t004023-017356-020a31-001">
+                        <coordinate name="offsetVector">
+                            <Count></Count>
+                        </coordinate>
+                    </Vector>
+                </extension>
+            </AbstractSettings>
+        </configuration>
+        <localReferenceFrame xmlns="http://www.opengis.net/sensorml/2.0">
+            <SpatialFrame>
+                <!-- The SpatialFrame is GM2000. -->
+                <!-- Noted in https://eop-cfi.esa.int/Repo/PUBLIC/DOCUMENTATION/SYSTEM_SUPPORT_DOCS/PE-TN-ESA-SY-0305%20Earth%20Observation%20OPS%20commanding%20definition%20v1.9.pdf -->
+                <origin>GM2000,the Geocentric Mean of J2000</origin>
+                <axis name="XY">Ground differences due to XY Plane definition:8000 m (in 2010); Time differences due to XY Plane definition: 1.2 s (2010)</axis>
+            </SpatialFrame>
+        </localReferenceFrame>  
+        
+        <paras:dynamics>
+            <validTime xmlns="http://www.opengis.net/sensorml/2.0">
+                <TimeInstant xmlns="http://www.opengis.net/gml/3.2">
+                    <timePosition>2019-07-30T00:39:04.622291</timePosition>
+                </TimeInstant>
+            </validTime>
+            <paras:attitude_matrix>
+                <!-- This is calculated using https://www.andre-gaschler.com/rotationconverter/ -->
+                <!-- The sequence of rotation axes is YXZ. -->
+                <!--   <attitudeList count="15">
+                       <attitude>
+                         <time>2019-07-30T00:40:09.874998</time>
+                         <frame>GM2000</frame>
+                         <q0>-5.084759e-01</q0>
+                         <q1>-3.818373e-01</q1>
+                         <q2>6.496271e-01</q2>
+                         <q3>4.166979e-01</q3>
+                         <wx>6.717978249071166e-05</wx>
+                         <wy>-9.266426786780357e-04</wy>
+                         <wz>-5.129589117132127e-04</wz>
+                         <roll>-4.148510795651129e+00</roll>
+                         <pitch>7.894170350724507e+01</pitch>
+                         <yaw>1.112276773932129e+02</yaw>
+                       </attitude> -->
+                <paras:matrixElements>
+                    <paras:r1c1>-0.1356302</paras:r1c1>
+                    <paras:r1c2>-0.1530864</paras:r1c2>
+                    <paras:r1c3>-0.9788611</paras:r1c3>
+                    <paras:r2c1>0.9297066</paras:r2c1>
+                    <paras:r2c2>-0.3611262</paras:r2c2>
+                    <paras:r2c3>-0.0723420</paras:r2c3>
+                    <paras:r3c1>-0.3424179</paras:r3c1>
+                    <paras:r3c2>-0.9198654</paras:r3c2>
+                    <paras:r3c3>0.1913051</paras:r3c3>
+                </paras:matrixElements>
+            </paras:attitude_matrix>             
+            <paras:velocity>
+                <valueList xmlns="http://www.opengis.net/gml/3.2" uom="1">
+                    -1.152671849000000e+03
+                    2.301805695000000e+03
+                    7.148484713000000e+03
+                </valueList>
+            </paras:velocity>           
+            <paras:angularAcceleration>
+                <!-- This property is the azimuthSteeringRate in Sentinel 1 image -->
+                1.590368784000000e+00
+            </paras:angularAcceleration>       
+        </paras:dynamics>
+
+        <paras:position_earth>
+            <paras:timeOfMeasurement> 2019-07-30T03:19:28</paras:timeOfMeasurement>
+            <paras:navigationalConfidence>
+                <DQ_AbsoluteExternalPositionalAccuracy xmlns="http://standards.iso.org/iso/19157/-2/mdq/1.0">
+                    <result>                
+                    </result>
+                </DQ_AbsoluteExternalPositionalAccuracy>
+            </paras:navigationalConfidence>
+            <paras:position>
+                000
+            </paras:position>
+        </paras:position_earth>
+        
+        <paras:platform>
+            <parameter xmlns="http://www.opengis.net/sensorml/2.0" name="platformParameters"></parameter>
+            <paras:observedPosition>
+                <paras:timeOfMeasurement>2019-07-30T03:19:28</paras:timeOfMeasurement>
+            </paras:observedPosition>
+            <paras:dynamics>
+                <paras:trueHeading uom="1">-1.224969159628476e+01</paras:trueHeading>
+                <paras:yaw uom="1">1.112276773932129e+02</paras:yaw>
+            </paras:dynamics>
+            
+            <paras:platformIdentification>
+                <identifier xmlns="http://www.isotc211.org/2005/gmi">
+                    <MD_Identifier xmlns="http://www.isotc211.org/2005/gmd">
+                        <code>
+                            <CharacterString xmlns="http://www.isotc211.org/2005/gco">Sentinel-1</CharacterString>
+                        </code>
+                    </MD_Identifier>
+                </identifier>
+                <description xmlns="http://www.isotc211.org/2005/gmi"></description>
+                <instrument xmlns="http://www.isotc211.org/2005/gmi">
+                    <MI_Instrument>
+                        <identifier>
+                            <MD_Identifier xmlns="http://www.isotc211.org/2005/gmd">
+                                <code>
+                                    <CharacterString xmlns="http://www.isotc211.org/2005/gco">IW</CharacterString>
+                                </code>
+                            </MD_Identifier>
+                        </identifier>
+                        <type>
+                            <CharacterString xmlns="http://www.isotc211.org/2005/gco">Interferometric Wide Swath</CharacterString>
+                        </type>
+                    </MI_Instrument>
+                </instrument>
+            </paras:platformIdentification>
+        </paras:platform>
+    </paras:offsetAndOrientation>
+    
+    <paras:identification>
+        
+        <paras:calibration>    
+            <paras:calibrationAgency>
+                <CI_Responsibility xmlns="http://standards.iso.org/iso/19115/-3/cit/2.0">
+                    <role>
+                        <CI_RoleCode codeList="RoleCode" codeListValue="owner" codeSpace="ISOTC211/19115"></CI_RoleCode>
+                    </role>
+                    <party>
+                        <CI_Organisation>
+                            <name>
+                                <CharacterString xmlns="http://standards.iso.org/iso/19115/-3/gco/1.0">ESA</CharacterString>
+                            </name>
+                        </CI_Organisation>
+                    </party>
+                </CI_Responsibility>
+            </paras:calibrationAgency>
+        </paras:calibration>
+    </paras:identification>
+    <paras:systemAndOperation>
+        <paras:collectionStartTime>2019-07-30T00:40:09.308324</paras:collectionStartTime>
+        <paras:collectionEndTime>2019-07-30T00:40:23.399163</paras:collectionEndTime>
+    </paras:systemAndOperation>
+    
+</paras:SD_SensorParameters>
