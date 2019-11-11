@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml19130="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml="http://www.opengis.net/sensorml/2.0" 
+    xmlns:gml="http://www.opengis.net/gml/3.2"
+    xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0"
+    xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0">
+    <import namespace="http://www.opengis.net/sensorml/2.0"
+        schemaLocation="http://schemas.opengis.net/sensorML/2.0/sensorML.xsd"/>
+    <import namespace="http://www.opengis.net/gml/3.2"
+        schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+    <import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19115/-2/gmi/1.0"
+        schemaLocation="https://schemas.isotc211.org/19115/-2/gmi/1.0/gmi.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19157/-2/mdq/1.0"
+        schemaLocation="https://schemas.isotc211.org/19157/-2/mdq/1.0/mdq.xsd"/>
+
+    <!-- =============== 19130-1 ==================== -->
+    <element name="SD_RotationSequence" type="sml19130:SD_RotationSequenceType"/>
+    <complexType name="SD_RotationSequenceType">
+        <choice>
+            <element name="XYZ" fixed="001">
+                <annotation>
+                    <documentation>rotation around X axis first, then Y, then Z</documentation>
+                </annotation>
+            </element>
+            <element name="XZY" fixed="002">
+                <annotation>
+                    <documentation>rotation around X axis first, then Z, then Y</documentation>
+                </annotation>
+            </element>
+            <element name="YXZ" fixed="003">
+                <annotation>
+                    <documentation>rotation around Y axis first, then X, then Z</documentation>
+                </annotation>
+            </element>
+            <element name="YZX" fixed="004">
+                <annotation>
+                    <documentation>rotation around Y axis first, then Z, then X</documentation>
+                </annotation>
+            </element>
+            <element name="ZXY" fixed="005">
+                <annotation>
+                    <documentation>rotation around Z axis first, then X, then Y</documentation>
+                </annotation>
+            </element>
+            <element name="ZYX" fixed="006">
+                <annotation>
+                    <documentation>rotation around Z axis first, then Y, then X</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <element name="SD_ShapeCode" type="sml19130:SD_ShapeCodeType">
+        <annotation>
+            <documentation>ShapeCode</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_ShapeCodeType">
+        <choice>
+            <element name="circular" fixed="001"/>
+            <element name="square" fixed="002"/>
+            <element name="rectangular" fixed="003"/>
+            <element name="elliptical" fixed="004"/>
+        </choice>
+    </complexType>
+
+    <element name="SD_SurfaceCode" type="sml19130:SD_SurfaceCodeType">
+        <annotation>
+            <documentation>Surface onto which the SAR image is projected</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_SurfaceCodeType">
+        <choice>
+            <element name="ground" fixed="001"/>
+            <element name="inflatedEllipsoid" fixed="002"/>
+            <element name="ortho" fixed="003"/>
+            <element name="slant" fixed="004"/>
+        </choice>
+    </complexType>
+
+    <element name="SD_SAROrientationCode" type="sml19130:SD_SAROrientationCodeType">
+        <annotation>
+            <documentation>Orientation of SAR antenna on the platform</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_SAROrientationCodeType">
+        <choice>
+            <element name="left" fixed="001"/>
+            <element name="right" fixed="002"/>
+        </choice>
+    </complexType>
+
+    <!-- =============== 19130-2 ==================== -->
+    <element name="SE_DataModelingMethod" type="sml19130:SE_DataModelingMethodType">
+        <annotation>
+            <documentation/>
+        </annotation>
+    </element>
+    <complexType name="SE_DataModelingMethodType">
+        <choice>
+            <element name="absoluteValue" fixed="001"/>
+            <element name="basicSequentialModeling" fixed="002"/>
+            <element name="collectionPlane" fixed="003"/>
+            <element name="rectifiedImage" fixed="004"/>
+            <element name="reserved" fixed="005"/>
+            <element name="vectorModeling" fixed="006"/>
+            <element name="notApplicable" fixed="007"/>
+        </choice>
+    </complexType>
+
+    <element name="SE_SARCollectionMode" type="sml19130:SE_SARCollectionModeType">
+        <annotation>
+            <documentation/>
+        </annotation>
+    </element>
+    <complexType name="SE_SARCollectionModeType">
+        <choice>
+            <element name="spotlight" fixed="002"/>
+            <element name="stripmap" fixed="003"/>
+            <element name="scan" fixed="001"/>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_InSARCollectionModeType">
+        <annotation>
+            <documentation>InSAR data collection modes</documentation>
+        </annotation>
+        <choice>
+            <element name="pinPongMode" fixed="001">
+                <annotation>
+                    <documentation>ping pong mode</documentation>
+                </annotation>
+            </element>
+            <element name="standardMode" fixed="002">
+                <annotation>
+                    <documentation>standard mode</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_InSARTransmitReceiveType">
+        <annotation>
+            <documentation>InSAR antenna transmit/receive arrangement</documentation>
+        </annotation>
+        <choice>
+            <element name="firstAntennaTransmit" fixed="001">
+                <annotation>
+                    <documentation>first antenna used for transmit</documentation>
+                </annotation>
+            </element>
+            <element name="secondAntennaTransmit" fixed="002">
+                <annotation>
+                    <documentation>second antenna used for transmit</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_SonarDeploymentType">
+        <annotation>
+            <documentation>location of SONAR relative to platform</documentation>
+        </annotation>
+        <choice>
+            <element name="hullMounted" fixed="001">
+                <annotation>
+                    <documentation>sensor that is mounted (attached) to the hull of a
+                        vessel</documentation>
+                </annotation>
+            </element>
+            <element name="poleMounted" fixed="002">
+                <annotation>
+                    <documentation>sensor that is mounted on a pole which is attached to the
+                        vessel</documentation>
+                </annotation>
+            </element>
+            <element name="Towed" fixed="003">
+                <annotation>
+                    <documentation>measuring device/sensor that is towed (pulled) behind a primary
+                        survey platform (e.g vessel)</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_SonarType">
+        <annotation>
+            <documentation>class of SONAR</documentation>
+        </annotation>
+        <choice>
+            <element name="Active" fixed="001">
+                <annotation>
+                    <documentation>transmits and receives sound waves</documentation>
+                </annotation>
+            </element>
+            <element name="Passive" fixed="002">
+                <annotation>
+                    <documentation>receives but does not transmit sound waves</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_SonarMode">
+        <annotation>
+            <documentation>method of operation of SONAR</documentation>
+        </annotation>
+        <choice>
+            <element name="SD_MultiBeam" fixed="001">
+                <annotation>
+                    <documentation>sonar system that emits multiple “beams” of sound waves in a
+                        fan-shaped pattern to produce a swath of sounding data in a single pass over
+                        an area of the seafloor</documentation>
+                </annotation>
+            </element>
+            <element name="SD_SideScan" fixed="004">
+                <annotation>
+                    <documentation>fixed acoustic beams that are directed (in water) perpendicularly
+                        to the direction of travel in order to scan the bottom and generate a record
+                        of the bottom configuration</documentation>
+                </annotation>
+            </element>
+            <element name="SD_SingleBeam" fixed="005">
+                <annotation>
+                    <documentation>echosounders that use one emitting and receiving “transducer”,
+                        which releases a series of energy pulses ensonifying a small area underneath
+                        the platform</documentation>
+                </annotation>
+            </element>
+            <element name="SD_Sweep" fixed="006">
+                <annotation>
+                    <documentation>several single beam transducers operating simulatenously,
+                        sequentially or in interleave phase and measurement of the amplitude is used
+                        for target detection</documentation>
+                </annotation>
+            </element>
+            <element name="SD_ScanningProfiler" fixed="007">
+                <annotation>
+                    <documentation>profiler comprises a small transducer array mounted on an
+                        electro-mechanical stepper motor operate at much higher frequencies than
+                        echo sounders and consequently have much reduced ranges and very little
+                        material penetrative capability</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_TideAdjustType">
+        <choice>
+            <element name="Prediction" fixed="001">
+                <annotation>
+                    <documentation>predicted tidal heights (related to chart datum) calculated using
+                        historical tidal values, for a fixed location</documentation>
+                </annotation>
+            </element>
+            <element name="Realtime" fixed="002">
+                <annotation>
+                    <documentation>tidal values derived in realtime for a fixed
+                        location</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_ATDimensionType">
+        <choice>
+            <element name="x" fixed="001">
+                <annotation>
+                    <documentation>error in x-dimension</documentation>
+                </annotation>
+            </element>
+            <element name="xy" fixed="002">
+                <annotation>
+                    <documentation>error in the xy-plane</documentation>
+                </annotation>
+            </element>
+            <element name="y" fixed="003">
+                <annotation>
+                    <documentation>error in y-dimension</documentation>
+                </annotation>
+            </element>
+            <element name="z" fixed="004">
+                <annotation>
+                    <documentation>error in z-dimension</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_ATErrorType">
+        <choice>
+            <element name="rms" fixed="001">
+                <annotation>
+                    <documentation>Root Mean Square error</documentation>
+                </annotation>
+            </element>
+            <element name="sigma" fixed="002">
+                <annotation>
+                    <documentation>Sigma error</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_ATPointType">
+        <choice>
+            <element name="checkPoint" fixed="001">
+                <annotation>
+                    <documentation>Ground Control Point applied as Check Point</documentation>
+                </annotation>
+            </element>
+            <element name="controlPoint" fixed="002">
+                <annotation>
+                    <documentation>Ground Control Point applied as Ground Control
+                        Point</documentation>
+                </annotation>
+            </element>
+            <element name="shadedimage" fixed="003">
+                <annotation>
+                    <documentation>Ground Control Point applied as a shaded part of the
+                        image</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_ATMeasType">
+        <choice>
+            <element name="Automatic" fixed="001">
+                <annotation>
+                    <documentation>Point positions are determined by an automatic
+                        process</documentation>
+                </annotation>
+            </element>
+            <element name="Manual" fixed="002">
+                <annotation>
+                    <documentation>Point positions are measured manually.</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="SE_ATStatisticType">
+        <choice>
+            <element name="image" fixed="001">
+                <annotation>
+                    <documentation>Statistical attributes valid for a single image</documentation>
+                </annotation>
+            </element>
+            <element name="strip" fixed="002">
+                <annotation>
+                    <documentation>Statistical attributes valid for a single strip</documentation>
+                </annotation>
+            </element>
+            <element name="block" fixed="003">
+                <annotation>
+                    <documentation>Statistical attributes valid for the block</documentation>
+                </annotation>
+            </element>
+        </choice>
+    </complexType>
+
+    <!-- SE_ATPeripheralDevic doesn't appear in Dictionary (appendix B) -->
+    <complexType name="SE_ATPeripheralDevice">
+        <choice>
+            <element name="gnss"/>
+            <element name="imu"/>
+        </choice>
+    </complexType>
+
+
+</schema>

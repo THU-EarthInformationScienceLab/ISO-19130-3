@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml19130="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml="http://www.opengis.net/sensorml/2.0" 
+    xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0">
+    <import namespace="http://www.opengis.net/sensorml/2.0"
+        schemaLocation="http://schemas.opengis.net/sensorML/2.0/sensorML.xsd"/>
+    <import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19115/-2/gmi/1.0"
+        schemaLocation="https://schemas.isotc211.org/19115/-2/gmi/1.0/gmi.xsd"/>
+
+    <include schemaLocation="./physicalSensorModel.xsd"/>
+    <include schemaLocation="./nonPhysicalSensorModel.xsd"/>
+
+    <!-- =====================19130-1 ============================= -->
+    <element name="SD_SensorModel" type="sml19130:SD_SensorModelType">
+        <annotation>
+            <documentation>Information on sensor Model for sensor collecting the
+                image.</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_SensorModelType">
+        <complexContent>
+            <!-- The base is an abstract element. It could only be implemented by xsi? -->
+            <extension base="gmi:AbstractMI_GeolocationInformation_Type">
+                <sequence>
+                    <!-- <element name="forImageID" type="string"></element> This property (forImageID) should be implemented in XML Document -->
+                    <element ref="sml:IdentifierList">
+                        <annotation>
+                            <documentation>identification for image to which the sensor model
+                                applies</documentation>
+                        </annotation>
+                    </element>
+
+                    <choice>
+                        <element name="physicalSensorModel" maxOccurs="unbounded"
+                            type="sml19130:SD_PhysicalSensorModelType">
+                            <annotation>
+                                <documentation>Physical Sensor Model for geopositioning of the
+                                    image</documentation>
+                            </annotation>
+                        </element>
+                        <element name="trueReplacementModel" maxOccurs="unbounded"
+                            type="sml19130:SD_TrueReplacementModelType">
+                            <annotation>
+                                <documentation>True replacement Model for geopositioning of the
+                                    image</documentation>
+                            </annotation>
+                        </element>
+                        <element name="correspondenceModel" maxOccurs="unbounded"
+                            type="sml19130:SD_CorrespondenceModelType">
+                            <annotation>
+                                <documentation>Correspondence Model for geopositioning of the
+                                    image</documentation>
+                            </annotation>
+                        </element>
+                    </choice>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <!-- ===================== 19130-2 ============================= -->
+    <element name="SE_SensorModel" type="sml19130:SE_SensorModelType">
+        <annotation>
+            <documentation>method and manufacturer information on sensor Model for sensor collecting
+                the image</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_SensorModelType">
+        <complexContent>
+            <extension base="sml19130:SD_SensorModelType">
+                <sequence>
+                    <element name="sensorDataModeling" type="sml19130:SE_DataModelingMethodType"
+                        minOccurs="0">
+                        <annotation>
+                            <documentation>method for modeling the sensor data</documentation>
+                        </annotation>
+                    </element>
+                    <element name="sensorManufaturer" type="string" minOccurs="0">
+                        <annotation>
+                            <documentation>maker of sensor</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

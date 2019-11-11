@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml19130="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml="http://www.opengis.net/sensorml/2.0" 
+    xmlns:swe="http://www.opengis.net/swe/2.0"
+    xmlns:gml="http://www.opengis.net/gml/3.2" 
+    xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0"
+    xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0">
+    <import namespace="http://www.opengis.net/sensorml/2.0"
+        schemaLocation="http://schemas.opengis.net/sensorML/2.0/sensorML.xsd"/>
+    <import namespace="http://www.opengis.net/gml/3.2"
+        schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+    <import namespace="http://www.opengis.net/swe/2.0"
+        schemaLocation="http://schemas.opengis.net/sweCommon/2.0/swe.xsd"/>
+    <import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19115/-2/gmi/1.0"
+        schemaLocation="https://schemas.isotc211.org/19115/-2/gmi/1.0/gmi.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19157/-2/mdq/1.0"
+        schemaLocation="https://schemas.isotc211.org/19157/-2/mdq/1.0/mdq.xsd"/>
+
+    <include schemaLocation="./codeList.xsd"/>
+
+    <!-- ==================== 19130-1  ==================== -->
+    <!-- ==================== Position ==================== -->
+    <element name="SD_Position" type="sml19130:SD_PositionType"/>
+    <complexType name="SD_PositionType">
+        <complexContent>
+            <extension base="sml:PhysicalComponentType">
+                <sequence>
+                    <element ref="sml19130:timeOfMeasurement"/>
+                    <element ref="sml19130:navigationalConfidence" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SD_EarthMeasuredLocation" type="sml19130:SD_EarthMeasuredLocationType">
+        <annotation>
+            <documentation>location relative to the Earth</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_EarthMeasuredLocationType">
+        <complexContent>
+            <extension base="sml19130:SD_PositionType">
+                <sequence>
+                    <element name="position" type="gml:DirectPositionType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SD_OrbitMeasuredLocation" type="sml19130:SD_EarthMeasuredLocationType">
+        <annotation>
+            <documentation>location given by position in orbit</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_OrbitMeasuredLocationType">
+        <complexContent>
+            <extension base="sml19130:SD_PositionType">
+                <sequence>
+                    <element name="argumentOfPerigee" type="gml:AngleType">
+                        <annotation>
+                            <documentation>angle in the orbital plane from the ascending node to the
+                                point of perigee, in the direction of spacecraft
+                                motion</documentation>
+                        </annotation>
+                    </element>
+                    <element name="bStarDrag" type="double" minOccurs="0">
+                        <annotation>
+                            <documentation>rate of change of the mean motion</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type is actually 'real'. -->
+                    <element name="eccentricity" type="double">
+                        <annotation>
+                            <documentation>eccentricity of the spacecraft orbit</documentation>
+                        </annotation>
+                    </element>
+                    <element name="epoch" type="dateTime">
+                        <annotation>
+                            <documentation>time for which the values provided for other orbital
+                                elements are true</documentation>
+                        </annotation>
+                    </element>
+                    <element name="inclination" type="gml:AngleType">
+                        <annotation>
+                            <documentation>angle at which the orbit plane crosses the equatorial
+                                plane</documentation>
+                        </annotation>
+                    </element>
+                    <element name="meanAnomaly" type="gml:AngleType">
+                        <annotation>
+                            <documentation>angle between prigee and the position of a hypothetical
+                                body that has the same orbital period as the real satellite but
+                                travles at a constant anguar speed</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type is actually 'real'. -->
+                    <element name="meanMotion" type="double">
+                        <annotation>
+                            <documentation>angle between perigee and the position of a hypothetical
+                                body that has the same orbital period as the real satellite but
+                                travels at a constant angular speed</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perigeePassageTime" type="dateTime">
+                        <annotation>
+                            <documentation>any one date and time at which the spacecraft passes
+                                perigee</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should reference TM_Duration in ISO 19108 -->
+                    <element name="period" type="duration">
+                        <annotation>
+                            <documentation>spacecraft orbital period</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The property 'referenceCRS' should be implemented in XML document. (19111)-->
+                    <element name="revNumber" type="integer" minOccurs="0">
+                        <annotation>
+                            <documentation>ordinal number of the satellite revolution at the time
+                                given by epoch</documentation>
+                        </annotation>
+                    </element>
+                    <element name="rightAscensionAscendingNode" type="gml:AngleType">
+                        <annotation>
+                            <documentation>angle eastward on the equatorial plane from the vernal
+                                equinox to the orbit ascending node</documentation>
+                        </annotation>
+                    </element>
+                    <element name="semiMajorAxis" type="gml:LengthType">
+                        <annotation>
+                            <documentation>length of the semimajor axis of the spacecraft
+                                orbit</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <!-- ==================== Attitude ==================== -->
+    <element name="SD_Attitude" type="sml19130:SD_AttitudeType">
+        <annotation>
+            <documentation>attitude information</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_AttitudeType">
+        <complexContent>
+            <extension base="sml:PhysicalComponentType"/>
+        </complexContent>
+    </complexType>
+    <!-- SD_AngleAttitude should actully inherit SD_Atitude but not physicalComponent. -->
+    <element name="SD_AngleAttitude" type="sml19130:SD_AngleAttitudeType">
+        <annotation>
+            <documentation>attitude information as three angles of rotation</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_AngleAttitudeType">
+        <complexContent>
+            <extension base="sml19130:SD_AttitudeType">
+                <sequence>
+                    <element name="rotatedAxes" type="boolean">
+                        <annotation>
+                            <documentation>indication whether or not the axes are rotated. True
+                                equals to rotated</documentation>
+                        </annotation>
+                    </element>
+                    <element name="rotationAngleX" type="gml:AngleType">
+                        <annotation>
+                            <documentation>angle of the rotation around the external x axis, often
+                                called roll or abbreviated as “ω”.</documentation>
+                        </annotation>
+                    </element>
+                    <element name="rotationAngleY" type="gml:AngleType">
+                        <annotation>
+                            <documentation>angle of the rotation around the external y axis often
+                                called pitch or abbreviated as “φ”.</documentation>
+                        </annotation>
+                    </element>
+                    <element name="rotationAngleZ" type="gml:AngleType">
+                        <annotation>
+                            <documentation>angle of the rotation around the external y axis often
+                                called pitch or abbreviated as “κ”.</documentation>
+                        </annotation>
+                    </element>
+                    <element name="rotationSequence" type="sml19130:SD_RotationSequenceType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="SD_MatrixAttitude" type="sml19130:SD_MatrixAttitudeType">
+        <annotation>
+            <documentation>rotation matrix that describes attitude</documentation>
+        </annotation>
+    </element>
+    <!-- SD_MatrixAttitude should actully inherit SD_Atitude but not physicalComponent. -->
+    <complexType name="SD_MatrixAttitudeType">
+        <complexContent>
+            <extension base="sml19130:SD_AttitudeType">
+                <sequence>
+                    <element ref="sml19130:matrixElements"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="matrixElements" type="sml19130:attitudeMatrix"/>
+    <complexType name="attitudeMatrix">
+        <sequence>
+            <element name="r1c1" type="double">
+                <annotation>
+                    <documentation>r means row and c means column</documentation>
+                </annotation>
+            </element>
+            <element name="r1c2" type="double"/>
+            <element name="r1c3" type="double"/>
+            <element name="r2c1" type="double"/>
+            <element name="r2c2" type="double"/>
+            <element name="r2c3" type="double"/>
+            <element name="r3c1" type="double"/>
+            <element name="r3c2" type="double"/>
+            <element name="r3c3" type="double"/>
+        </sequence>
+    </complexType>
+
+    <!-- ==================== Dynamics ==================== -->
+    <element name="SD_Dynamics" type="sml19130:SD_DynamicsType">
+        <annotation>
+            <documentation>motion of a body</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_DynamicsType">
+        <complexContent>
+            <extension base="sml:PhysicalComponentType">
+                <!-- This is a choice for SD_Attitude type. -->
+                <sequence>
+                    <choice minOccurs="0">
+                        <annotation>
+                            <documentation>orientation of the body</documentation>
+                        </annotation>
+                        <element name="attitude_matrix" minOccurs="0"
+                            type="sml19130:SD_MatrixAttitudeType"/>
+                        <element name="attitude_angle" minOccurs="0"
+                            type="sml19130:SD_AngleAttitudeType"/>
+                    </choice>
+                    <!-- The type of "velocity" should be Velocity imported from 19103. -->
+                    <element name="velocity" minOccurs="0" type="anyType">
+                        <annotation>
+                            <documentation>linear velocity of the body</documentation>
+                        </annotation>
+                    </element>
+
+                    <element name="acceleration" minOccurs="0" type="double">
+                        <annotation>
+                            <documentation>rate of change of velocity of the body</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type of "angularVelocity" should be AngularVelocity imported from 19103. -->
+                    <element name="angularVelocity" minOccurs="0" type="double">
+                        <annotation>
+                            <documentation>angular velocity of the body</documentation>
+                        </annotation>
+                    </element>
+                    <element name="angularAcceleration" minOccurs="0" type="double">
+                        <annotation>
+                            <documentation>rate of change of the angular velocity of the
+                                body</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The property "dateTime" should be implemented in XML document. -->
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="SD_PlatformDynamics" type="sml19130:SD_PlatformDynamicsType">
+        <annotation>
+            <documentation>directions of platform travel and pointing</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_PlatformDynamicsType">
+        <complexContent>
+            <extension base="sml19130:SD_DynamicsType">
+                <sequence>
+                    <!-- The type of "trueHeading", Angle is actully from 19103 -->
+                    <element name="trueHeading" type="gml:AngleType">
+                        <annotation>
+                            <documentation>actual direction in which the platform is travelling
+                                relative to North</documentation>
+                        </annotation>
+                    </element>
+                    <element name="yaw" type="gml:AngleType">
+                        <annotation>
+                            <documentation>offset between the true heading and the direction of the
+                                platform positive x-axis</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <!-- ==================== Position and Orientation ==================== -->
+    <element name="SD_PositionAndOrientation" type="sml19130:SD_PositionAndOrientationType">
+        <annotation>
+            <documentation>position and orientation of axes of a coordinate system of a body
+                relative to an external coordinate system</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_PositionAndOrientationType">
+        <complexContent>
+            <extension base="sml:PhysicalSystemType">
+                <sequence>
+                    <!-- The "offset" property is implemented in XML document as configuration -->
+                    <!-- element "CRS" should be implemented in XML document by localReferenceFrame -->
+                    <element name="dynamics" type="sml19130:SD_DynamicsType">
+                        <annotation>
+                            <documentation>position and orientation of axes of a coordinate system
+                                of a body relative to an external coordinate system</documentation>
+                        </annotation>
+                    </element>
+                    <choice minOccurs="0">
+                        <element name="position_earth" type="sml19130:SD_EarthMeasuredLocationType">
+                            <annotation>
+                                <documentation>position of a body using EarthMeasuredLocation
+                                    type</documentation>
+                            </annotation>
+                        </element>
+                        <element name="position_orbit" type="sml19130:SD_OrbitMeasuredLocationType">
+                            <annotation>
+                                <documentation>position of a body using orbitMeasuredLocation
+                                    type</documentation>
+                            </annotation>
+                        </element>
+                    </choice>
+                    <!-- The mountingObject and platform a components of a physicalSystem -->
+                    <element ref="sml:ComponentList"/>
+                    <!--  <element name="mountingObject" type="sml19130:SD_PositionAndOrientationType" minOccurs="0">
+                        <annotation>
+                            <documentation>description of relative spatial relationship between
+                                a body and another body upon which the latter is
+                                mounted</documentation>
+                        </annotation>
+                    </element>
+                    <element name="platform" type="sml19130:SD_PlatformParametersType" minOccurs="0">
+                        <annotation>
+                            <documentation>description of the platform on which an object is
+                                mounted</documentation>
+                        </annotation>
+                    </element>-->
+
+
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="SD_PlatformParameters" type="sml19130:SD_PlatformParametersType">
+        <annotation>
+            <documentation>information about motion and configuration of platform</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_PlatformParametersType">
+        <complexContent>
+            <extension base="sml:ParameterListType">
+                <sequence>
+                    <element name="observedPosition" type="sml19130:SD_PositionType">
+                        <annotation>
+                            <documentation>position of the platform at the location of the position
+                                measurement instrument on the platform</documentation>
+                        </annotation>
+                    </element>
+                    <!-- positionObservationOffset inherits sml:. -->
+                    <element name="dynamics" type="sml19130:SD_PlatformDynamicsType"/>
+                    <!-- offsetOfINS be implemented in XML -->
+                    <element name="platformIdentification" type="gmi:MI_Platform_Type"/>
+                    <!-- ============ 19130-2 ============= -->
+                    <choice>
+                        <element name="aerialTriangulation" minOccurs="0" maxOccurs="unbounded"
+                            type="sml19130:SE_AerialTriangulationType"/>
+                    </choice>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <!-- ==================== Other elements ==================== -->
+
+
+    <element name="timeOfMeasurement" type="dateTime">
+        <annotation>
+            <documentation>time when the position is measured</documentation>
+        </annotation>
+    </element>
+    <element name="navigationalConfidence">
+        <annotation>
+            <documentation>accuracy of position</documentation>
+        </annotation>
+        <complexType>
+            <sequence>
+                <!-- Only AbstractDQ_PositionalAccuracy is found in 19157, but not DQ_PositionalAccuracy. -->
+                <element ref="mdq:AbstractDQ_PositionalAccuracy" minOccurs="0"/>
+            </sequence>
+        </complexType>
+    </element>
+
+
+    <!-- ================== 19130-2  ==================== -->
+    <!-- ================== dynamics ==================== -->
+    <element name="SE_Dynamics" type="sml19130:SE_DynamicsType">
+        <annotation>
+            <documentation>uncertainty in motion of a body</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_DynamicsType">
+        <complexContent>
+            <extension base="sml19130:SD_DynamicsType">
+                <sequence>
+                    <element name="navigationalConfidence"
+                        type="mdq:DQ_QuantitativeAttributeAccuracy_Type">
+                        <annotation>
+                            <documentation>error matrix for motion of a body</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SE_PlatformDynamics" type="sml19130:SE_PlatformDynamicsType">
+        <annotation>
+            <documentation>additional parameters describing platform motion and pointing for SONAR
+                and LIDAR sensors</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_PlatformDynamicsType">
+        <complexContent>
+            <extension base="sml19130:SD_PlatformDynamicsType">
+                <sequence>
+                    <!-- The type should be 'velocity' -->
+                    <element name="groundSpeed" type="anyType" minOccurs="0">
+                        <annotation>
+                            <documentation>motion of platform relative to ground</documentation>
+                        </annotation>
+                    </element>
+                    <element name="heave" type="gml:AngleType" minOccurs="0">
+                        <annotation>
+                            <documentation>oscillatory rise and fall of a ship due to the entire
+                                hull being lifted by the force of the sea [9]</documentation>
+                        </annotation>
+                    </element>
+                    <element name="settlement" type="gml:AngleType" minOccurs="0">
+                        <annotation>
+                            <documentation/>
+                        </annotation>
+                    </element>
+                    <!-- The type should be Length -->
+                    <element name="squat" type="double" minOccurs="0">
+                        <annotation>
+                            <documentation>increase in a vessel's draught arising from its motion
+                                through the water</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SE_InSARTime" type="sml19130:SE_InSARTimeType">
+        <annotation>
+            <documentation/>
+        </annotation>
+    </element>
+    <complexType name="SE_InSARTimeType">
+        <sequence>
+            <element name="timeFunction" type="string" minOccurs="0">
+                <annotation>
+                    <documentation/>
+                </annotation>
+            </element>
+            <!-- dateTime in an ordered way -->
+            <element name="timeTable" type="dateTime" minOccurs="0" maxOccurs="unbounded">
+                <annotation>
+                    <documentation>time table for InSAR operation</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    
+
+
+    <!-- ==================== platform parameters ===================== -->
+    <element name="SE_AerialTriangulation" type="sml19130:SE_AerialTriangulationType">
+        <annotation>
+            <documentation>method for determining the exterior orientation of more than two images
+                in one calculation</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_AerialTriangulationType">
+        <!--!!!!!!! Further modification -->
+        <complexContent>
+            <extension base="sml:PhysicalSystemType">
+                <sequence>
+                    <element name="additionalParameter" type="double" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <documentation>additional parameters used to control adjustment, from ISO/TS
+                                19159</documentation>
+                        </annotation>
+                    </element>
+                    <element name="atName" type="string">
+                        <annotation>
+                            <documentation>sequence of alphanumerical characters describing the aerial
+                                triangulation project</documentation>
+                        </annotation>
+                    </element>
+                    <element name="gcpReference" type="string" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <documentation>name of the registry for Ground Control Points</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should be Distance from 19103. -->
+                    <element name="terrainHeight" type="double" minOccurs="0">
+                        <annotation>
+                            <documentation>average terrain height in the project area used for various
+                                reasons e.g. to support image matching</documentation>
+                        </annotation>
+                    </element>
+                    <!-- =========== Classes aggregated to SE_AeriaTriangualtion ================= -->
+                    <element name="SE_ATImage" type="sml19130:SE_ATImageType">
+                        <annotation>
+                            <documentation>characteristics of a single image of the aerial triangulation
+                                block</documentation>
+                        </annotation>
+                    </element>
+                    <element name="SE_ATStrip" type="sml19130:SE_ATStripType">
+                        <annotation>
+                            <documentation>Characteristics of a single strip of the aerial triangulation
+                                block</documentation>
+                        </annotation>
+                    </element>
+                    <element name="SE_ATBlock" type="sml19130:SE_ATBlockType">
+                        <annotation>
+                            <documentation>Characteristics of the aerial triangulation block</documentation>
+                        </annotation>
+                    </element>
+                    <element name="SE_ATObservations" type="sml19130:SE_ATObservationsType">
+                        <annotation>
+                            <documentation>observations of the aerial triangulation</documentation>
+                        </annotation>
+                    </element>
+                    <element name="SE_ATUnknowns" type="sml19130:SE_ATUnknownsType">
+                        <annotation>
+                            <documentation>information about the unknowns of the
+                                triangulation</documentation>
+                        </annotation>
+                    </element>
+                    <element name="SE_ATOtherResults" type="sml19130:SE_ATOtherResultsType">
+                        <annotation>
+                            <documentation>other results of the adjustment process</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+         </complexContent>
+    </complexType>
+
+    <element name="SE_ATImage" type="sml19130:SE_ATImageType">
+        <annotation>
+            <documentation/>
+        </annotation>
+    </element>
+    <complexType name="SE_ATImageType">
+        <sequence>
+            <element name="blockID" type="string" minOccurs="0">
+                <annotation>
+                    <documentation>alphanumerical identifier of the adjustment block</documentation>
+                </annotation>
+            </element>
+            <element name="imageID" type="string" maxOccurs="unbounded">
+                <annotation>
+                    <documentation>alphanumerical identifier of an aerial image</documentation>
+                </annotation>
+            </element>
+            <element name="stripID" type="string" minOccurs="0" maxOccurs="unbounded">
+                <annotation>
+                    <documentation>alphanumerical identifier of a photo-flight strip</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="SE_ATStripType">
+        <sequence>
+            <element name="stripID" type="string">
+                <annotation>
+                    <documentation>alphanumerical identifier of a photo-flight strip</documentation>
+                </annotation>
+            </element>
+            <element name="blockID" type="string" minOccurs="0">
+                <annotation>
+                    <documentation>alphanumerical identifier of the adjustment block</documentation>
+                </annotation>
+            </element>
+            <element name="numberOfImages" type="integer" minOccurs="0">
+                <annotation>
+                    <documentation>number of images that from the strip</documentation>
+                </annotation>
+            </element>
+            <element name="imageID" type="string" maxOccurs="unbounded">
+                <annotation>
+                    <documentation>alphanumerical identifier of aerial images</documentation>
+                </annotation>
+            </element>
+            <element name="stripAzimuth" type="gml:AngleType" minOccurs="0">
+                <annotation>
+                    <documentation>average direction of the plane’s flight track when the images of
+                        the strip were taken</documentation>
+                </annotation>
+            </element>
+            <element name="crabAngle" type="gml:AngleType" minOccurs="0">
+                <annotation>
+                    <documentation>angle between the strip azimuth and the pointing direction of the
+                        plane’s fuselage</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="SE_ATBlockType">
+        <sequence>
+            <element name="blockID" type="string">
+                <annotation>
+                    <documentation>alphanumerical identifier of the adjustment block</documentation>
+                </annotation>
+            </element>
+            <element name="numberOfStrips" type="integer" minOccurs="0">
+                <annotation>
+                    <documentation>number of strips that form the block</documentation>
+                </annotation>
+            </element>
+            <element name="stripID" type="string" minOccurs="0" maxOccurs="unbounded">
+                <annotation>
+                    <documentation>alphanumerical identifier of a photo-flight
+                        strips</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="SE_ATObservationsType">
+        <sequence>
+            <element name="errorType" type="sml19130:SE_ATErrorType">
+                <annotation>
+                    <documentation>definition of the formula that is applied to compute the error
+                        such as sigma or rmsr</documentation>
+                </annotation>
+            </element>
+            <!-- The type should be 'distance' -->
+            <element name="errorAutomaticAPriori" type="swe:QuantityType" minOccurs="0">
+                <annotation>
+                    <documentation>known geometric quality of the automatically measured tie points
+                        as set before the adjustment (a priori)</documentation>
+                </annotation>
+            </element>
+            <element name="errorManualAPriori" type="double" minOccurs="0">
+                <annotation>
+                    <documentation>known geometric quality of the manually measured tie points as
+                        set before the adjustment (a priori)</documentation>
+                </annotation>
+            </element>
+            <element name="eliminateFlag" type="boolean" minOccurs="0">
+                <annotation>
+                    <documentation>flag that indicates whether an observation is activated or
+                        deactivated before the adjustment</documentation>
+                </annotation>
+            </element>
+            <!--======== Class aggregated to SE_AtObservations ======-->
+            <element name="SE_ATImageMeasurements" type="sml19130:SE_ATImageMeasurementsType">
+                <annotation>
+                    <documentation>observations of image coordinates</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+
+    <!-- This is an empty class -->
+    <complexType name="SE_ATUnknownsType"/>
+
+    <complexType name="SE_ATOtherResultsType">
+        <sequence>
+            <element name="numberCheckPoints" type="integer">
+                <annotation>
+                    <documentation>number of Check Points applied</documentation>
+                </annotation>
+            </element>
+            <element name="numberGcp" type="integer">
+                <annotation>
+                    <documentation>number of Ground Control Points applied</documentation>
+                </annotation>
+            </element>
+            <element name="numberTiePoints" type="integer">
+                <annotation>
+                    <documentation>number of tie points applied</documentation>
+                </annotation>
+            </element>
+            <element name="SE_ATAdjustedPointPosition"
+                type="sml19130:SE_ATAdjustedPointPositionType">
+                <annotation>
+                    <documentation/>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="SE_ATImageMeasurementsType">
+        <sequence>
+            <element name="imageID" type="string">
+                <annotation>
+                    <documentation>alphanumerical identifier of the aerial image</documentation>
+                </annotation>
+            </element>
+            <element name="imagePointID" type="string">
+                <annotation>
+                    <documentation>alphanumerical identifier of an image point</documentation>
+                </annotation>
+            </element>
+            <element name="imagePointPosition" type="gml:DirectPositionType">
+                <annotation>
+                    <documentation>2-dimensional coordinates that describe the geometric position of
+                        the image point</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+
+    <element name="SE_ATTiePoints" type="sml19130:SE_ATTiePointsType">
+        <annotation>
+            <documentation>points with a location on an image that are used to link two of more
+                neighboring images</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_ATTiePointsType">
+        <complexContent>
+            <extension base="sml19130:SE_ATObservationsType">
+                <sequence>
+                    <element name="tiePointID" type="string">
+                        <annotation>
+                            <documentation>alphanumerical identifier of the tie
+                                point</documentation>
+                        </annotation>
+                    </element>
+                    <element name="measurementType" type="sml19130:SE_ATMeasType" minOccurs="0">
+                        <annotation>
+                            <documentation>flag that indicates whether a tie point is manually or
+                                automatically determined</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SE_ATGCP" type="sml19130:SE_ATGCPType">
+        <annotation>
+            <documentation>Ground Control Point that is prepared and eventually used within the
+                aerial triangulation</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_ATGCPType">
+        <complexContent>
+            <extension base="sml19130:SE_ATObservationsType">
+                <sequence>
+                    <element name="gcpID" type="string">
+                        <annotation>
+                            <documentation>alphanumerical identifier of the Ground Control
+                                Point</documentation>
+                        </annotation>
+                    </element>
+                    <element name="dimensionType" type="sml19130:SE_ATDimensionType">
+                        <annotation>
+                            <documentation>dimensionality of the GCP such as horizontal and
+                                vertical</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should be 'Distance' from 19103. -->
+                    <element name="errorGcpAPriori" type="swe:QuantityType" minOccurs="0">
+                        <annotation>
+                            <documentation>value that characterizes the geometric quality as known
+                                before the adjustment is computed</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorType" type="sml19130:SE_ATErrorType">
+                        <annotation>
+                            <documentation>specification of the formula that shall be applied for
+                                calculating the error-value</documentation>
+                        </annotation>
+                    </element>
+                    <element name="gcpPosition" type="gml:DirectPositionType">
+                        <annotation>
+                            <documentation>planar 2-dimensional coordinates of the
+                                gcp</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should be 'Distance' from 19103 -->
+                    <element name="gcpElevation" type="swe:QuantityType" minOccurs="0">
+                        <annotation>
+                            <documentation>vertical 1-dimensional coordinate of the
+                                gcp</documentation>
+                        </annotation>
+                    </element>
+                    <element name="pointType" type="sml19130:SE_ATPointType">
+                        <annotation>
+                            <documentation>whether a point is a Ground Control Point, Check Point or
+                                something else, if a priori known</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SE_ATGNSSMeasurements" type="sml19130:SE_ATGNSSMeasurementsType">
+        <annotation>
+            <documentation>information on the GNSS- measurement involved in the aerial
+                triangulation</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_ATGNSSMeasurementsType">
+        <complexContent>
+            <extension base="sml19130:SE_ATObservationsType">
+                <sequence>
+                    <element name="dimensionType" type="sml19130:SE_ATDimensionType">
+                        <annotation>
+                            <documentation>dimensionality of the GNSS- measured point such as
+                                horizontal and vertica</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should be 'Distance' from 19103. -->
+                    <element name="errorGnss" type="swe:QuantityType" minOccurs="0">
+                        <annotation>
+                            <documentation>value that characterizes the geometric quality of the
+                                GNSS-position</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorType" type="sml19130:SE_ATErrorType">
+                        <annotation>
+                            <documentation>definition of the formula that is applied to compute the
+                                error such as sigma or rms</documentation>
+                        </annotation>
+                    </element>
+                    <element name="gnssCameraID" type="string" minOccurs="0">
+                        <annotation>
+                            <documentation>alphanumerical identifier of a camera related to the
+                                GNSS- positions</documentation>
+                        </annotation>
+                    </element>
+                    <element name="gnssImageID" type="string">
+                        <annotation>
+                            <documentation>alphanumerical identifier of an image related to the
+                                GNSS- positions</documentation>
+                        </annotation>
+                    </element>
+                    <element name="gnssPosition" type="gml:DirectPositionType">
+                        <annotation>
+                            <documentation>position provided by a GNSS</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should be Distance from 19103 -->
+                    <element name="gnssElevation" type="swe:QuantityType" minOccurs="0">
+                        <annotation>
+                            <documentation>elevation provided by a GNSS</documentation>
+                        </annotation>
+                    </element>
+                    <element name="gnssStripID" type="string" minOccurs="0">
+                        <annotation>
+                            <documentation>alphanumerical identifier of a photo-flight strip related
+                                to the GNSS-positions</documentation>
+                        </annotation>
+                    </element>
+                    <element name="gnssTime" type="dateTime">
+                        <annotation>
+                            <documentation>time at which the position measurement was
+                                made</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+
+    <element name="SE_ATIMUMeasurements" type="sml19130:SE_ATIMUMeasurementsType">
+        <annotation>
+            <documentation>information on the Inertial Measurement Unit (IMU)- measurement involved
+                in the aerial triangulation</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_ATIMUMeasurementsType">
+        <complexContent>
+            <extension base="sml19130:SE_ATObservationsType">
+                <sequence>
+                    <element name="dimensionType" type="sml19130:SE_ATDimensionType">
+                        <annotation>
+                            <documentation>dimensionality of the IMU- measured point such as
+                                horizontal and vertical</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorImuKappa" type="gml:AngleType" minOccurs="0">
+                        <annotation>
+                            <documentation>value that characterizes the geometric quality of the
+                                kappa- value of the IMU- position</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorImuOmega" type="gml:AngleType" minOccurs="0">
+                        <annotation>
+                            <documentation>value that characterizes the geometric quality of the
+                                omega-value of the IMU- position</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorImuPhi" type="gml:AngleType" minOccurs="0">
+                        <annotation>
+                            <documentation>value that characterizes the geometric quality of the
+                                phi- value of the IMU- position</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorType" type="sml19130:SE_ATErrorType">
+                        <annotation>
+                            <documentation>definition of the formula that is applied to compute the
+                                error such as sigma or rm</documentation>
+                        </annotation>
+                    </element>
+                    <element name="imuCameraID" type="string" minOccurs="0">
+                        <annotation>
+                            <documentation>alphanumerical identifier of a camera related to the IMU-
+                                positions</documentation>
+                        </annotation>
+                    </element>
+                    <element name="imuImageID" type="string">
+                        <annotation>
+                            <documentation>alphanumerical identifier of an image related to the IMU-
+                                positions</documentation>
+                        </annotation>
+                    </element>
+                    <element name="imuKappa" type="gml:AngleType">
+                        <annotation>
+                            <documentation>kappa value of the IMU- position</documentation>
+                        </annotation>
+                    </element>
+                    <element name="imuOmega" type="gml:AngleType">
+                        <annotation>
+                            <documentation>omega value of the IMU- position</documentation>
+                        </annotation>
+                    </element>
+                    <element name="imuPhi" type="gml:AngleType">
+                        <annotation>
+                            <documentation>phi value of the IMU-position</documentation>
+                        </annotation>
+                    </element>
+                    <element name="imuStripID" type="string" minOccurs="0">
+                        <annotation>
+                            <documentation>alphanumerical identifier of a photo-flight strip related
+                                to the IMU-positions</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="SE_ATAdjustedPointPositionType">
+        <sequence>
+            <element name="pointID" type="string"/>
+            <element name="pointType" type="sml19130:SE_ATPointType"/>
+            <element name="horizontalPosition" type="gml:DirectPositionType"/>
+            <!-- The type should be 'Distance' from 19103 -->
+            <element name="verticalPosition" type="swe:QuantityType"/>
+        </sequence>
+    </complexType>
+
+    <element name="SE_ATAdjustedTiePoint" type="sml19130:SE_ATAdjustedTiePointType">
+        <annotation>
+            <documentation>information about sensor model for sensor collecting the
+                image</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_ATAdjustedTiePointType">
+        <complexContent>
+            <extension base="sml19130:SE_ATOtherResultsType">
+                <sequence>
+                    <element name="eliminateFlag" type="boolean" minOccurs="0">
+                        <annotation>
+                            <documentation>flag that indicates whether a tie point is activated or
+                                deactivated during the adjustment</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should be 'Distance' from 19103 -->
+                    <element name="errorAdjustedTiePoint" type="swe:QuantityType" minOccurs="0">
+                        <annotation>
+                            <documentation>value that characterizes the geometric
+                                error</documentation>
+                        </annotation>
+                    </element>
+                    <element name="imageID" type="string" maxOccurs="unbounded">
+                        <annotation>
+                            <documentation>image in which the tie point was found</documentation>
+                        </annotation>
+                    </element>
+                    <element name="numberOfRays" type="integer" minOccurs="0">
+                        <annotation>
+                            <documentation>number of images in which the point is located
+                                (ordered)</documentation>
+                        </annotation>
+                    </element>
+                    <element name="pointID" type="string">
+                        <annotation>
+                            <documentation>alphanumerical identifier of the point that is located in
+                                the image</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="SE_ATAdjustmentStatistics" type="sml19130:SE_ATAdjustmentStatisticsType">
+        <annotation>
+            <documentation>statistical values describing the geometric quality of the
+                adjustment</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_ATAdjustmentStatisticsType">
+        <complexContent>
+            <extension base="sml19130:SE_ATOtherResultsType">
+                <sequence>
+                    <element name="dimensionType" type="sml19130:SE_ATDimensionType">
+                        <annotation>
+                            <documentation>dimension in which the error is valid</documentation>
+                        </annotation>
+                    </element>
+                    <element name="type" type="sml19130:SE_ATStatisticType">
+                        <annotation>
+                            <documentation/>
+                        </annotation>
+                    </element>
+                    <!-- The type should be 'Distance' from 19103 -->
+                    <element name="errorTieAdjustedMax" type="swe:QuantityType" minOccurs="0">
+                        <annotation>
+                            <documentation>maximum geometric error</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorTieAdjustedMin" type="double" minOccurs="0">
+                        <annotation>
+                            <documentation>minimum geometric error</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorType" type="sml19130:SE_ATErrorType">
+                        <annotation>
+                            <documentation>definition of formula that is applied to compute the
+                                error such as sigma or rm</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should be 'Distance' from 19103 -->
+                    <element name="sigmaZero" type="swe:QuantityType">
+                        <annotation>
+                            <documentation>value that characterizes the geometric quality of the
+                                aerial triangulation block</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="SE_ATAdjustedGCP" type="sml19130:SE_ATAdjustedGCPType">
+        <annotation>
+            <documentation/>
+        </annotation>
+    </element>
+    <complexType name="SE_ATAdjustedGCPType">
+        <complexContent>
+            <extension base="sml19130:SE_ATOtherResultsType">
+                <sequence>
+                    <element name="dimensionType" type="sml19130:SE_ATDimensionType">
+                        <annotation>
+                            <documentation>dimension in which the error is valid</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should be 'Distance' from 19103 -->
+                    <element name="errorAdjustedGcp" type="swe:QuantityType" minOccurs="0">
+                        <annotation>
+                            <documentation>accuracy in one dimension</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorType" type="sml19130:SE_ATErrorType">
+                        <annotation>
+                            <documentation>definition of formula that is applied to compute the
+                                error such as sigma or rm</documentation>
+                        </annotation>
+                    </element>
+                    <element name="gcpID" type="string">
+                        <annotation>
+                            <documentation>alphanumerical identifier of the Ground Control
+                                Point</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="SE_ATCheckPoint" type="sml19130:SE_ATCheckPointType">
+        <annotation>
+            <documentation>check point that is prepared and eventually used within the aerial
+                triangulation</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_ATCheckPointType">
+        <complexContent>
+            <extension base="sml19130:SE_ATOtherResultsType">
+                <sequence>
+                    <element name="checkPointID" type="string" minOccurs="0">
+                        <annotation>
+                            <documentation>position of the Check Point as a result of the adjustment
+                                process</documentation>
+                        </annotation>
+                    </element>
+                    <element name="dimensionType" type="sml19130:SE_ATDimensionType">
+                        <annotation>
+                            <documentation>dimension in which the error is valid</documentation>
+                        </annotation>
+                    </element>
+                    <!-- The type should be 'Distance' from 19103 -->
+                    <element name="errorCp" type="swe:QuantityType" minOccurs="0">
+                        <annotation>
+                            <documentation>value that characterizes the geometric
+                                quality</documentation>
+                        </annotation>
+                    </element>
+                    <element name="errorType" type="sml19130:SE_ATErrorType">
+                        <annotation>
+                            <documentation>definition of formula that is applied to compute the
+                                error such as sigma or rm</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="SE_ATExteriorOrientation" type="sml19130:SE_ATExteriorOrientationType">
+        <annotation>
+            <documentation>Exterior Orientation of every image</documentation>
+        </annotation>
+    </element>
+    <complexType name="SE_ATExteriorOrientationType">
+        <complexContent>
+            <extension base="sml19130:SE_ATUnknownsType">
+                <sequence>
+                    <element name="approximateAttitude" type="sml19130:SD_AttitudeType">
+                        <annotation>
+                            <documentation>approximate values necessary for the aerial triangulation
+                                calculation</documentation>
+                        </annotation>
+                    </element>
+                    <element name="approximatePosition" type="sml19130:SD_PositionType">
+                        <annotation>
+                            <documentation>approximate values necessary for the aerial triangulation
+                                calculation</documentation>
+                        </annotation>
+                    </element>
+                    <element name="attitude" type="sml19130:SD_AttitudeType">
+                        <annotation>
+                            <documentation>attitude of the adjusted image</documentation>
+                        </annotation>
+                    </element>
+                    <element name="position" type="sml19130:SD_PositionType">
+                        <annotation>
+                            <documentation>position of the adjusted image</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+
+    <!-- =================== -->
+
+    <!-- This should be defined in ISO 19123, but no schema valid. -->
+    <element name="CV_GridPoint" type="sml19130:CV_GridPointType"/>
+    <complexType name="CV_GridPointType">
+        <sequence>
+            <element name="gridCoord" type="sml19130:CV_GridCoordinateType"/>
+        </sequence>
+    </complexType>
+
+    <!-- This should be defined in ISO 19123, but no schema valid. -->
+    <element name="CV_GridCoordinate" type="sml19130:CV_GridCoordinateType"/>
+    <complexType name="CV_GridCoordinateType">
+        <sequence>
+            <element name="coordValues" type="gml:CoordinatesType"/>
+        </sequence>
+    </complexType>
+</schema>

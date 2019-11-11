@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml19130="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml="http://www.opengis.net/sensorml/2.0"
+    xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
+    xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
+    xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0" 
+    xmlns:swe="http://www.opengis.net/swe/2.0"
+    xmlns:gml="http://www.opengis.net/gml/3.2"
+    xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0">
+    <import namespace="http://www.opengis.net/sensorml/2.0"
+        schemaLocation="http://schemas.opengis.net/sensorML/2.0/sensorML.xsd"/>
+    <import namespace="http://www.opengis.net/gml/3.2"
+        schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19115/-2/gmi/1.0"
+        schemaLocation="https://schemas.isotc211.org/19115/-2/gmi/1.0/gmi.xsd"/>
+    <import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19157/-2/mdq/1.0"
+        schemaLocation="https://schemas.isotc211.org/19157/-2/mdq/1.0/mdq.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19115/-3/cit/2.0"
+        schemaLocation="https://schemas.isotc211.org/19115/-3/cit/2.0/cit.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19115/-3/mrs/1.0"
+        schemaLocation="https://schemas.isotc211.org/19115/-3/mrs/1.0/mrs.xsd"/>
+    <import namespace="http://www.opengis.net/swe/2.0"
+        schemaLocation="http://schemas.opengis.net/sweCommon/2.0/swe.xsd"/>
+
+    <include schemaLocation="./spatialElements.xsd"/>
+
+    <!-- ============= Ground control points ==============-->
+    <element name="SD_GCPRepository" type="sml19130:SD_GCPRepositoryType">
+        <annotation>
+            <documentation>information required to obtain ground control point information from a
+                repository of ground control points</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_GCPRepositoryType">
+        <complexContent>
+            <extension base="swe:AbstractDataComponentType">
+                <sequence>
+                    <element name="accessRestricted" type="boolean">
+                        <annotation>
+                            <documentation>whether image provider is limiting access to ground
+                                control point information</documentation>
+                        </annotation>
+                    </element>
+                    <element name="accessInformation" type="cit:CI_Contact_Type">
+                        <annotation>
+                            <documentation>if accessRestricted is true, point of contact who may
+                                authorize access to th data; if accessRestricted false, mechanism
+                                for obtaining the ground control point data.</documentation>
+                        </annotation>
+                    </element>
+                    <element name="controlPoints" type="gmi:MI_GCPCollection_Type" minOccurs="0">
+                        <annotation>
+                            <documentation>
+                                information about a control point collection
+                            </documentation>
+                        </annotation>
+                    </element>
+                </sequence>  
+            </extension>
+        </complexContent>
+    </complexType>
+
+
+    <element name="SD_LocationGCP" type="sml19130:SD_LocationGCPType">
+        <annotation>
+            <documentation>ground control point for which image coordinates have been
+                determined</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_LocationGCPType">
+        <complexContent>
+            <extension base="gmi:MI_GCP_Type">
+                <sequence>
+                    <!-- The type of gridCoordinates should be CV_GridCoordinates from 19123 -->
+                    <element name="gridCoordinates" type="sml19130:CV_GridCoordinateType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SD_ImageIdentifiableGCP" type="sml19130:SD_ImageIdentifiableGCPType">
+        <annotation>
+            <documentation>ground control point that is either marked in the image or described so
+                that the user can find it in the image.</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_ImageIdentifiableGCPType">
+        <complexContent>
+            <extension base="gmi:MI_GCP_Type">
+                <sequence>
+                    <element name="description" type="string">
+                        <annotation>
+                            <documentation>description of the ground control point sufficient to
+                                enable the user to find the image of the ground control point in the
+                                larger image</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SD_GriddedGCPCollection" type="sml19130:SD_GriddedGCPCollectionType">
+        <annotation>
+            <documentation>ground control points regularly spaced in either image coordinates or
+                ground coordinates and given as a grid</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_GriddedGCPCollectionType">
+        <complexContent>
+            <extension base="gmi:MI_GCPCollection_Type">
+                <sequence>
+                    <element name="dimension" type="integer">
+                        <annotation>
+                            <documentation>number of dimensions in the GCP grid</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SD_ImageGridGCPCollection" type="sml19130:SD_ImageGridGCPCollectionType">
+        <annotation>
+            <documentation>ground control points regularly spaced in either image coordinates or
+                ground coordinates and given as a grid</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_ImageGridGCPCollectionType">
+        <complexContent>
+            <extension base="sml19130:SD_GriddedGCPCollectionType">
+                <sequence>
+                    <!-- The type of origin should be CV_GridPoint from 19123 -->
+                    <element name="origin" type="sml19130:CV_GridPointType">
+                        <annotation>
+                            <documentation>position of the first grid cell with coordinate
+                                [0,0,(0)]</documentation>
+                        </annotation>
+                    </element>
+                    <!-- How to express the ordered integer in type -->
+                    <element name="spacing" type="integer" minOccurs="2" maxOccurs="3">
+                        <annotation>
+                            <documentation>size of the step in the number of pixels for each
+                                dimension in image coordinates</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SD_objectGridGCPCollection" type="sml19130:SD_objectGridGCPCollectionType">
+        <annotation>
+            <documentation>ground control points regularly spaced in object coordinates and given as
+                a grid</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_objectGridGCPCollectionType">
+        <complexContent>
+            <extension base="sml19130:SD_GriddedGCPCollectionType">
+                <sequence>
+                    <element name="origin" type="gml:DirectPositionType">
+                        <annotation>
+                            <documentation>position of the first grid cell, with coordinate
+                                [0,0,(0)], of the GCP grid in object coordinates</documentation>
+                        </annotation>
+                    </element>
+                    <!-- How to express ordered vector in type (VectorType) -->
+                    <element name="offsets" type="gml:VectorType" minOccurs="2" maxOccurs="3">
+                        <annotation>
+                            <documentation>size of the steps in the object coordinates for each
+                                dimension in object coordinates</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+</schema>

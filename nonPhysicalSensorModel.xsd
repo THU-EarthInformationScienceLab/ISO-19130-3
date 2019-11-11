@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml19130="https://schemas.isotc211.org/19130/-3/sml19130/1.0"
+    xmlns:sml="http://www.opengis.net/sensorml/2.0" 
+    xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0"
+    xmlns:gml="http://www.opengis.net/gml/3.2"
+    xmlns:swe="http://www.opengis.net/swe/2.0">
+    <import namespace="http://www.opengis.net/sensorml/2.0"
+        schemaLocation="http://schemas.opengis.net/sensorML/2.0/sensorML.xsd"/>
+    <import namespace="http://www.opengis.net/gml/3.2"
+        schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+    <import namespace="http://standards.iso.org/iso/19115/-2/gmi/1.0"
+        schemaLocation="https://schemas.isotc211.org/19115/-2/gmi/1.0/gmi.xsd"/>
+    <import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+    <import namespace="http://www.opengis.net/swe/2.0"
+        schemaLocation="http://schemas.opengis.net/sweCommon/2.0/swe.xsd"/>
+
+    <include schemaLocation="./groundControlPoints.xsd"/>
+
+    <!-- ================== Fitting Function ================= -->
+    <element name="SD_FittingFunction" type="sml19130:SD_FittingFunctionType">
+        <annotation>
+            <documentation>function relating image and ground coordinates</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_FittingFunctionType">
+        <complexContent>
+            <extension base="sml:SimpleProcessType"/>
+        </complexContent>
+    </complexType>
+
+    <element name="SD_Polynomial" type="sml19130:SD_PolynomialType">
+        <annotation>
+            <documentation>polynomial used in the fitting function</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_PolynomialType">
+        <complexContent>
+            <extension base="sml19130:SD_FittingFunctionType">
+                <sequence>
+                    <!-- The type of resultDimension is MD_DimensionNameTypeCode. It's a codelist. The root element of MD_DimensionNameTypeCode.xml is dictionary. -->
+                    <!-- It should implement in XML to explicitly define this codeList -->
+                    <element name="resultDimension" type="gml:DictionaryType">
+                        <annotation>
+                            <documentation>name of the dependent variable derived from the
+                                functional fit</documentation>
+                        </annotation>
+                    </element>
+                    <element name="coefficient" type="sml19130:SD_PolynomialCoefficientType"
+                        maxOccurs="unbounded">
+                        <annotation>
+                            <documentation>coefficient of a term in the polynomial
+                                function</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SD_PolynomialCoefficient" type="sml19130:SD_PolynomialCoefficientType">
+        <annotation>
+            <documentation>coefficient of one term of a polynomial function</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_PolynomialCoefficientType">
+        <sequence>
+            <!-- property: +value: real -->
+            <element name="variable" type="sml19130:SD_VariableType" minOccurs="0"
+                maxOccurs="unbounded">
+                <annotation>
+                    <documentation>set of variables to which the coefficient applies</documentation>
+                </annotation>
+            </element>
+            <element name="value" type="double"/>
+        </sequence>
+    </complexType>
+
+    <element name="SD_Variable" type="sml19130:SD_VariableType">
+        <annotation>
+            <documentation>independent variable used in polynomial function</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_VariableType">
+        <complexContent>
+            <extension base="swe:AbstractDataComponentType">
+                <sequence>
+                    <!-- The type of dimension is MD_DimensionNameTypeCode. Which are implemented in XML document. -->
+                    <element name="dimension" type="gml:DictionaryType">
+                        <annotation>
+                            <documentation>name of the independent variable</documentation>
+                        </annotation>
+                    </element>
+                    <!-- power,scaleFactor,translationValue are parameter in XML Document -->
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="SD_RationalPolynomial" type="sml19130:SD_RationalPolynomialType">
+        <annotation>
+            <documentation>rational polynomial used as fitting function</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_RationalPolynomialType">
+        <complexContent>
+            <extension base="sml19130:SD_FittingFunctionType">
+                <sequence>
+                    <element name="numerator" type="sml19130:SD_PolynomialType">
+                        <annotation>
+                            <documentation>numerator of the rational polynomial</documentation>
+                        </annotation>
+                    </element>
+                    <element name="denominator" type="sml19130:SD_PolynomialType">
+                        <annotation>
+                            <documentation>denominator of rational polynomial</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+
+    <!-- ==========True Replacement Model ================= -->
+    <element name="SD_TrueReplacementModel" type="sml19130:SD_TrueReplacementModelType">
+        <annotation>
+            <documentation>information describing the Ture Replacement Model</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_TrueReplacementModelType">
+        <complexContent>
+            <extension base="sml:AggregateProcessType">
+                <sequence>
+                    <!-- Here should reference CV_GridPoint from 19123. At least 3 points -->
+                    <element name="regionOfValidity" type="gml:CoordinatesType"
+                        maxOccurs="unbounded">
+                        <annotation>
+                            <documentation>region of the image to which the fitting function
+                                applies</documentation>
+                        </annotation>
+                    </element>
+                    <!-- 'accuracy' is the capbility -->
+                    <choice>
+                        <element name="fitAsFunction" type="sml19130:SD_FittingFunctionType">
+                            <annotation>
+                                <documentation>using fitting function to relate image and ground
+                                    coordinates</documentation>
+                            </annotation>
+                        </element>
+                        <element name="fitAsGrid" type="sml19130:SD_TRMAsGridType">
+                            <annotation>
+                                <documentation>use of gridded GCP to relate image and ground
+                                    coordinates</documentation>
+                            </annotation>
+                        </element>
+                    </choice>
+                    <choice>
+                        <element name="controlPoints" type="gmi:MI_GCPCollection_Type">
+                            <annotation>
+                                <documentation>ground control points used to check or refine the
+                                    True Replacement Model</documentation>
+                            </annotation>
+                        </element>
+                        <element name="controlPointRepository" type="sml19130:SD_GCPRepositoryType">
+                            <annotation>
+                                <documentation>information about repository from which the
+                                    collection of GCP used for checking or refining the True
+                                    Replacement Model may be obtained</documentation>
+                            </annotation>
+                        </element>
+                    </choice>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="SD_TRMAsGrid" type="sml19130:SD_TRMAsGridType">
+        <annotation>
+            <documentation>True replacement Model as gridded GCPs</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_TRMAsGridType">
+        <complexContent>
+            <extension base="sml19130:SD_GriddedGCPCollectionType">
+                <sequence>
+                    <!-- The type of interpolation (CV_InterpolationMethod) is from 19123  -->
+                    <element name="interpolation" type="sml:ProcessMethodPropertyType">
+                        <annotation>
+                            <documentation>method to interpolate the location between
+                                GCPs</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <!-- ============= Correspondence Model ============== -->
+    <element name="SD_CorrespondenceModel" type="sml19130:SD_CorrespondenceModelType">
+        <annotation>
+            <documentation>information abouut the Correspondence Model</documentation>
+        </annotation>
+    </element>
+    <complexType name="SD_CorrespondenceModelType">
+        <complexContent>
+            <extension base="sml:SimpleProcessType">
+                <sequence>
+                    <!-- Here should reference CV_GridPoint from 19123. At least 3 points -->
+                    <element name="regionOfValidity" type="gml:CoordinatesType"
+                        maxOccurs="unbounded">
+                        <annotation>
+                            <documentation>region of the image to which the fitting function
+                                applies</documentation>
+                        </annotation>
+                    </element>
+                    <element name="fittingFunction" type="sml19130:SD_FittingFunctionType">
+                        <annotation>
+                            <documentation>function relating image and ground
+                                coordinates</documentation>
+                        </annotation>
+                    </element>
+                    <choice>
+                        <element name="controlPoints" type="gmi:MI_GCPCollection_Type">
+                            <annotation>
+                                <documentation>collection of control points used to derive the
+                                    fitting functions</documentation>
+                            </annotation>
+                        </element>
+                        <element name="repositoryGCP" type="sml19130:SD_GCPRepositoryType">
+                            <annotation>
+                                <documentation>information about repository from which the
+                                    collection of GCP used for deriving the fitting function may be
+                                    obtained</documentation>
+                            </annotation>
+                        </element>
+                    </choice>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>
