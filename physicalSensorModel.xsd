@@ -37,7 +37,7 @@
                     </element>
                     <!-- v== groundControlPoints Information ==v -->
                     <choice>
-                        <element name="controlPointRespository" type="sml19130:SD_GCPRepositoryType" minOccurs="0"/>
+                        <element name="controlPointRepository" type="sml19130:SD_GCPRepositoryType" minOccurs="0"/>
                         <element name="controlPoints" type="gmi:MI_GCPCollection_Type" minOccurs="0" />
                     </choice>
                 </sequence>
